@@ -6,6 +6,7 @@ use crate::profiles;
 pub fn parse_args(options: &mut options::Options) {
     let mut profile: std::option::Option<profiles::Profiles> = None;
     let mut default = false;
+    let mut save = false;
 
     // this block limits scope of borrows by parser.refer() method
     {
@@ -15,7 +16,7 @@ pub fn parse_args(options: &mut options::Options) {
         parser
             .refer(&mut options.safe_moves)
             .add_option(
-                &["--safe-moves"],
+                &["-s", "--safe-moves"],
                 StoreTrue,
                 tr!("Prevent accidental moves that result in getting killed"),
             )
@@ -28,19 +29,23 @@ pub fn parse_args(options: &mut options::Options) {
         parser
             .refer(&mut profile)
             .add_option(
-                &["--profile"],
+                &["-p", "--profile"],
                 StoreOption,
                 tr!("Set the game profile (CLASSIC, ROBOTS2, NIGHTMARE, ROBOTS2EASY, CLASSICWITHSAFETELEPORTS)"));
 
         parser
             .refer(&mut options.colors)
-            .add_option(&["--colors"], StoreTrue, tr!("Enable terminal colors"))
+            .add_option(
+                &["-c", "--colors"],
+                StoreTrue,
+                tr!("Enable terminal colors"),
+            )
             .add_option(&["--no-colors"], StoreFalse, tr!("Disable terminal colors"));
 
         parser
             .refer(&mut options.asciionly)
             .add_option(
-                &["--asciionly"],
+                &["-a", "--asciionly"],
                 StoreTrue,
                 tr!("Use only ascii characters"),
             )
@@ -55,6 +60,11 @@ pub fn parse_args(options: &mut options::Options) {
             StoreTrue,
             tr!("Restore default values"),
         );
+        parser.refer(&mut save).add_option(
+            &["--save-conf"],
+            StoreTrue,
+            tr!("Save current configuration"),
+        );
 
         parser.parse_args_or_exit();
     }
@@ -65,5 +75,9 @@ pub fn parse_args(options: &mut options::Options) {
 
     if default {
         *options = options::Options::default();
+    }
+
+    if save {
+        options.store();
     }
 }

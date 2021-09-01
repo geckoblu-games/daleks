@@ -13,8 +13,6 @@ fn main() {
 
     argparse::parse_args(&mut options);
 
-    options.store();
-
     let mut game = game::Game::new(&options);
 
     game.new_game();
