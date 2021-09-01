@@ -3,6 +3,13 @@ name = "daleks"
 version = "0.5.0"
 edition = "2018"
 
+authors = ["Alessio Piccoli <alepic@geckoblu.net>"]
+description = "Escape from evil robots who want to exterminate you."
+repository = "https://github.com/geckoblu-games/daleks"
+keywords = ["terminal", "game"]
+categories = ["games"]
+license = "GPL-3.0"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
