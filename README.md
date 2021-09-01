@@ -20,7 +20,7 @@ This keeps up until they finally get you or you complete the game.
 The game is inspired by `gnome-robots` which in turn was inspired by `BSD robots` (aka [`Chase`](https://en.wikipedia.org/wiki/Chase_(video_game))), and so we are back to terminal.
 
 
-## Instructions
+## How to play
 
 ```
  Directions:
@@ -45,11 +45,19 @@ Legend:
     *:  junk heap    
 ```
 
-## Compiling
+## Installation
 
-Follow these instructions to compile `daleks`.
+### From sources
+Follow these instructions to compile `daleks` (requires [rust](https://www.rust-lang.org/) installed).
 
  1. Clone the project `$ git clone https://github.com/geckoblu-games/daleks && cd daleks`
  2. Build the project `$ cargo build --release`
  3. Once complete, the binary will be located at `target/release/daleks`
+
+### From crates.io
+If you're a rusticean, `daleks` can be installed with `cargo`.
+
+```
+cargo install daleks
+```
 
