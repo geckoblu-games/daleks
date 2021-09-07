@@ -1,0 +1,5 @@
+* better exit on wrong terminal size
+* bsd board
+* better panic handling
+* exterminate option
+* long help

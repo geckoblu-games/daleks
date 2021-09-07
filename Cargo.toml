@@ -6,6 +6,7 @@ edition = "2018"
 authors = ["Alessio Piccoli <alepic@geckoblu.net>"]
 description = "Escape from evil robots who want to exterminate you."
 repository = "https://github.com/geckoblu-games/daleks"
+homepage = "https://github.com/geckoblu-games/daleks#readme"
 keywords = ["terminal", "game"]
 categories = ["games"]
 license = "GPL-3.0"
@@ -19,3 +20,10 @@ xdg = "2.2"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 argparse = "0.2"
+
+
+[package.metadata.deb]
+section = "games"
+priority = "optional"
+assets = [["target/release/daleks", "usr/games/", "755"]]
+

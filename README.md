@@ -61,3 +61,5 @@ If you're a rusticean, `daleks` can be installed with `cargo`.
 cargo install daleks
 ```
 
+### For Debian / Ubuntu
+You can use the .deb file provided with the [release](https://github.com/geckoblu-games/daleks/releases/).
