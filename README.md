@@ -53,6 +53,7 @@ Follow these instructions to compile `daleks` (requires [rust](https://www.rust-
  1. Clone the project `$ git clone https://github.com/geckoblu-games/daleks && cd daleks`
  2. Build the project `$ cargo build --release`
  3. Once complete, the binary will be located at `target/release/daleks`
+ 4. Copy the binary in one of the directories listed in your $PATH
 
 ### From crates.io
 If you're a rusticean, `daleks` can be installed with `cargo`.
