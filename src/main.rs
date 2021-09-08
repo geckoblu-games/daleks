@@ -1,3 +1,5 @@
+use std::process;
+
 #[macro_use]
 mod internationalization;
 
@@ -13,9 +15,17 @@ fn main() {
 
     argparse::parse_args(&mut options);
 
-    let mut game = game::Game::new(&options);
+    let res = game::Game::new(&options);
 
-    game.new_game();
+    match res {
+        Ok(mut game) => {
+            game.new_game();
+            game.run();
+        }
+        Err(s) => {
+            eprintln!("ERROR: {}", s);
 
-    game.run();
+            process::exit(1);
+        }
+    }
 }

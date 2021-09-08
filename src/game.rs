@@ -52,9 +52,10 @@ pub struct Game {
 }
 
 impl Game {
-    pub fn new(options: &Options) -> Self {
+    pub fn new(options: &Options) -> Result<Self, String> {
         let mut board = Board::new(options);
-        board.init();
+
+        board.init()?;
 
         let (arena_width, arena_height) = board.get_arena_size();
         let arena = vec![ObjectType::None; arena_width * arena_height];
@@ -65,7 +66,7 @@ impl Game {
         ];
         let score_type_splatted = [options.score_type1_splatted, options.score_type2_splatted];
 
-        Game {
+        Ok(Game {
             board,
 
             safe_moves: options.safe_moves,
@@ -96,7 +97,7 @@ impl Game {
             free_safe_teleports: options.free_safe_teleports,
             max_safe_teleports: options.max_safe_teleports,
             moveable_heaps: options.moveable_heaps,
-        }
+        })
     }
 
     pub fn new_game(&mut self) {

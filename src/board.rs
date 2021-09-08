@@ -76,22 +76,22 @@ impl Board {
         write!(self.stdout, "{}", termion::cursor::Show).unwrap();
     }
 
-    pub fn init(&mut self) {
+    pub fn init(&mut self) -> Result<(), String> {
         let (terminal_width, terminal_height) = terminal_size().unwrap();
         let terminal_width = terminal_width as usize;
         let terminal_height = terminal_height as usize;
 
         if terminal_width < self.board_width {
-            panic!(
+            return Err(format!(
                 "Terminal width is too small for board ({} < {})",
                 terminal_width, self.board_width
-            );
+            ));
         }
         if terminal_height < self.board_height {
-            panic!(
+            return Err(format!(
                 "Terminal height is too small for board ({} < {})",
                 terminal_height, self.board_height
-            );
+            ));
         }
 
         self.delta_x = (terminal_width - self.board_width) / 2;
@@ -118,6 +118,8 @@ impl Board {
         // self.draw_arena();
 
         self.stdout.flush().unwrap();
+
+        Ok(())
     }
 
     fn draw_walls(&mut self) {
