@@ -1,9 +1,9 @@
 * bsd board
-* better panic handling
 * exterminate option
 * long help
-* check option --no-colors
 
 DONE:
 
 * better exit on wrong terminal size
+* better panic handling
+* check option --no-colors

@@ -104,7 +104,9 @@ impl Board {
         // write!(self.stdout, "{}{}", backgroundcolor, termion::clear::All).unwrap();
         // write!(self.stdout, "{}{}", color::Bg(color::Blue), termion::clear::All).unwrap();
 
-        write!(self.stdout, "{}", color::Bg(color::Black)).unwrap();
+        if self.colors {
+            write!(self.stdout, "{}", color::Bg(color::Black)).unwrap();
+        }
 
         // Clear background
         for x in 0..self.board_width {
