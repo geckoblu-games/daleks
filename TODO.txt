@@ -1,9 +1,10 @@
 * bsd board
-* exterminate option
 * long help
+* save score?
 
 DONE:
 
 * better exit on wrong terminal size
 * better panic handling
 * check option --no-colors
+* exterminate option

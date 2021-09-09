@@ -1,4 +1,5 @@
 use argparse::{ArgumentParser, StoreFalse, StoreOption, StoreTrue};
+use std::process;
 
 use crate::options;
 use crate::profiles;
@@ -7,6 +8,7 @@ pub fn parse_args(options: &mut options::Options) {
     let mut profile: std::option::Option<profiles::Profiles> = None;
     let mut default = false;
     let mut save = false;
+    let mut exterminate = false;
 
     // this block limits scope of borrows by parser.refer() method
     {
@@ -55,6 +57,12 @@ pub fn parse_args(options: &mut options::Options) {
                 tr!("Use extended unicode characters"),
             );
 
+        parser.refer(&mut exterminate).add_option(
+            &["-x", "--exterminate"],
+            StoreTrue,
+            tr!("Use at your own risk"),
+        );
+
         parser.refer(&mut default).add_option(
             &["--defaults"],
             StoreTrue,
@@ -69,6 +77,11 @@ pub fn parse_args(options: &mut options::Options) {
         parser.parse_args_or_exit();
     }
 
+    if exterminate {
+        println!("{}", EXTERMINATE);
+        process::exit(1);
+    }
+
     if let Some(profile) = profile {
         options.set_profile(profile);
     }
@@ -81,3 +94,25 @@ pub fn parse_args(options: &mut options::Options) {
         options.store();
     }
 }
+
+const EXTERMINATE: &str = "
+              EXTERMINATE!
+                       \\
+                     _,------,_
+          |)=O=====-'     O    '-
+                  /==============\\
+                  |===============|
+                  |__|_|_|_|_|_|_||
+    )=============|__|_|_|_|_|_|_||
+                 /________________|
+               (/() / ()| () | () |
+              (/() / () / () | () |
+             (/() / ()  | () | () |
+            (/() / ()   / () | () |
+           (/() / ()   | ()  / () |
+          (/() / ()    / () | ()  |
+         (/() / ()    | ()  | ()  |
+        (/() / ()    /  ()  | ()  |
+       (/() / ()    |  ()   | ()  |
+      /===========================|
+";
