@@ -8,3 +8,4 @@ DONE:
 * exterminate option
 * bsd board
 * long help
+* print version

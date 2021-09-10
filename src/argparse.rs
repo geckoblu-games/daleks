@@ -10,6 +10,7 @@ pub fn parse_args(options: &mut options::Options) {
     let mut howtoplay = false;
     let mut default = false;
     let mut save = false;
+    let mut version = false;
     let mut exterminate = false;
 
     // this block limits scope of borrows by parser.refer() method
@@ -71,6 +72,12 @@ pub fn parse_args(options: &mut options::Options) {
             "Use at your own risk",
         );
 
+        parser.refer(&mut version).add_option(
+            &["--version"],
+            StoreTrue,
+            "Output version information and exit",
+        );
+
         parser
             .refer(&mut default)
             .add_option(&["--defaults"], StoreTrue, "Restore default values");
@@ -83,15 +90,20 @@ pub fn parse_args(options: &mut options::Options) {
         parser.parse_args_or_exit();
     }
 
+    if exterminate {
+        println!("{}", EXTERMINATE);
+        process::exit(1);
+    }
+
     if howtoplay {
         println!("For detailed instructions on how to play visit:");
         println!("         https://github.com/geckoblu-games/daleks#readme");
         process::exit(0);
     }
 
-    if exterminate {
-        println!("{}", EXTERMINATE);
-        process::exit(1);
+    if version {
+        println!("daleks {}", env!("CARGO_PKG_VERSION"));
+        process::exit(0);
     }
 
     if let Some(boardtype) = boardtype {
