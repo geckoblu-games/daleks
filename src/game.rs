@@ -616,30 +616,29 @@ impl Game {
 
     fn show_dead(&mut self) {
         self.board
-            .show_player_message(self.player_x, self.player_y, tr!("AARRrrgghhhh...."));
+            .show_player_message(self.player_x, self.player_y, "AARRrrgghhhh....");
         thread::sleep(Duration::from_millis(CHANGE_DELAY))
     }
 
     fn show_level_complete(&mut self) {
         self.board
-            .show_player_message(self.player_x, self.player_y, tr!("Yahoo!!"));
+            .show_player_message(self.player_x, self.player_y, "Yahoo!!");
         thread::sleep(Duration::from_millis(CHANGE_DELAY))
     }
 
     fn ask_quit(&mut self) -> bool {
-        let message = tr!("Do you really want to quit?\n(y\\n))");
+        let message = "Do you really want to quit?\n(y\\n)";
         self.board.show_confirmation_dialog(message)
     }
 
     fn ask_new_game(&mut self) -> bool {
-        let message = tr!("You are dead.\nDo you want to play another game?\n(y\\n))");
+        let message = "You are dead.\nDo you want to play another game?\n(y\\n)";
         self.board.show_confirmation_dialog(message)
     }
 
     fn show_game_complete_and_ask(&mut self) -> bool {
-        let message = tr!(
-            "Congratulations!\nYou completed the game.\nDo you want to play another game?\n(y\\n))"
-        );
+        let message =
+            "Congratulations!\nYou completed the game.\nDo you want to play another game?\n(y\\n))";
         self.board.show_confirmation_dialog(message)
     }
 

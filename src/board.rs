@@ -147,7 +147,7 @@ impl Board {
             COLOR_WALL,
         );
         if self.boardtype == BoardType::Bsd {
-            self.write_at(self.arena_width + 3, 0, tr!("Directions:"), COLOR_TEXT);
+            self.write_at(self.arena_width + 3, 0, "Directions:", COLOR_TEXT);
             self.write_at(self.arena_width + 3, 2, "y k u", COLOR_TEXT);
             self.write_at(self.arena_width + 3, 3, " \\!/", COLOR_TEXT);
             self.write_at(self.arena_width + 3, 4, "h- -l", COLOR_TEXT);
@@ -155,32 +155,22 @@ impl Board {
             self.write_at(self.arena_width + 3, 6, "b j n", COLOR_TEXT);
 
             let mut l = 8;
-            self.write_at(self.arena_width + 3, l, tr!("Commands:"), COLOR_TEXT);
-            self.write_at(
-                self.arena_width + 3,
-                l + 2,
-                tr!("w: wait for end"),
-                COLOR_TEXT,
-            );
-            self.write_at(
-                self.arena_width + 3,
-                l + 3,
-                tr!("+: safe teleport"),
-                COLOR_TEXT,
-            );
+            self.write_at(self.arena_width + 3, l, "Commands:", COLOR_TEXT);
+            self.write_at(self.arena_width + 3, l + 2, "w: wait for end", COLOR_TEXT);
+            self.write_at(self.arena_width + 3, l + 3, "+: safe teleport", COLOR_TEXT);
             self.write_at(
                 self.arena_width + 3,
                 l + 4,
-                tr!("-: random teleport"),
+                "-: random teleport",
                 COLOR_TEXT,
             );
-            self.write_at(self.arena_width + 3, l + 5, tr!("q: quit"), COLOR_TEXT);
+            self.write_at(self.arena_width + 3, l + 5, "q: quit", COLOR_TEXT);
 
             l = 15;
-            self.write_at(self.arena_width + 3, l, tr!("Legend:"), COLOR_TEXT);
-            self.write_at(self.arena_width + 3, l + 2, tr!("@; you"), COLOR_TEXT);
-            self.write_at(self.arena_width + 3, l + 3, tr!("+ #: robot"), COLOR_TEXT);
-            self.write_at(self.arena_width + 3, l + 4, tr!("*: heap"), COLOR_TEXT);
+            self.write_at(self.arena_width + 3, l, "Legend:", COLOR_TEXT);
+            self.write_at(self.arena_width + 3, l + 2, "@; you", COLOR_TEXT);
+            self.write_at(self.arena_width + 3, l + 3, "+ #: robot", COLOR_TEXT);
+            self.write_at(self.arena_width + 3, l + 4, "*: heap", COLOR_TEXT);
         }
     }
 
@@ -230,9 +220,9 @@ impl Board {
     }
 
     fn draw_status(&mut self) {
-        let level = format!("{}: {}", tr!("Level"), self.level);
-        let score = format!("{}: {}", tr!("Score"), self.score);
-        let safes = format!("{}: {}", tr!("Safe teleports"), self.safeteleports);
+        let level = format!("{}: {}", "Level", self.level);
+        let score = format!("{}: {}", "Score", self.score);
+        let safes = format!("{}: {}", "Safe teleports", self.safeteleports);
 
         match self.boardtype {
             BoardType::Normal => {

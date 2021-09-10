@@ -15,27 +15,23 @@ pub fn parse_args(options: &mut options::Options) {
     // this block limits scope of borrows by parser.refer() method
     {
         let mut parser = ArgumentParser::new();
-        parser.set_description(tr!("Escape from evil robots who want to exterminate you."));
+        parser.set_description("Escape from evil robots who want to exterminate you.");
 
         parser
             .refer(&mut howtoplay)
-            .add_option(
-                &["--how-to-play"],
-                StoreTrue,
-                tr!("How to play"),
-            );
+            .add_option(&["--how-to-play"], StoreTrue, "How to play");
 
         parser
             .refer(&mut options.safe_moves)
             .add_option(
                 &["-s", "--safe-moves"],
                 StoreTrue,
-                tr!("Prevent accidental moves that result in getting killed"),
+                "Prevent accidental moves that result in getting killed",
             )
             .add_option(
                 &["--no-safe-moves"],
                 StoreFalse,
-                tr!("Don't prevent accidental moves that result in getting killed"),
+                "Don't prevent accidental moves that result in getting killed",
             );
 
         parser
@@ -43,51 +39,45 @@ pub fn parse_args(options: &mut options::Options) {
             .add_option(
                 &["-p", "--profile"],
                 StoreOption,
-                tr!("Set the game profile (CLASSIC, ROBOTS2, NIGHTMARE, ROBOTS2EASY, CLASSICWITHSAFETELEPORTS)"));
+                "Set the game profile (CLASSIC, ROBOTS2, NIGHTMARE, ROBOTS2EASY, CLASSICWITHSAFETELEPORTS)");
 
         parser
             .refer(&mut options.colors)
-            .add_option(
-                &["-c", "--colors"],
-                StoreTrue,
-                tr!("Enable terminal colors"),
-            )
-            .add_option(&["--no-colors"], StoreFalse, tr!("Disable terminal colors"));
+            .add_option(&["-c", "--colors"], StoreTrue, "Enable terminal colors")
+            .add_option(&["--no-colors"], StoreFalse, "Disable terminal colors");
 
         parser
             .refer(&mut options.asciionly)
             .add_option(
                 &["-a", "--asciionly"],
                 StoreTrue,
-                tr!("Use only ascii characters"),
+                "Use only ascii characters",
             )
             .add_option(
                 &["--no-asciionly"],
                 StoreFalse,
-                tr!("Use extended unicode characters"),
+                "Use extended unicode characters",
             );
 
         parser.refer(&mut boardtype).add_option(
             &["-b", "--boardtype"],
             StoreOption,
-            tr!("Set the board layout (NORMAL, BSD)"),
+            "Set the board layout (NORMAL, BSD)",
         );
 
         parser.refer(&mut exterminate).add_option(
             &["-x", "--exterminate"],
             StoreTrue,
-            tr!("Use at your own risk"),
+            "Use at your own risk",
         );
 
-        parser.refer(&mut default).add_option(
-            &["--defaults"],
-            StoreTrue,
-            tr!("Restore default values"),
-        );
+        parser
+            .refer(&mut default)
+            .add_option(&["--defaults"], StoreTrue, "Restore default values");
         parser.refer(&mut save).add_option(
             &["--save-conf"],
             StoreTrue,
-            tr!("Save current configuration"),
+            "Save current configuration",
         );
 
         parser.parse_args_or_exit();

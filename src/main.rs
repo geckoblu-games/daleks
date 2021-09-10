@@ -1,8 +1,5 @@
 use std::process;
 
-#[macro_use]
-mod internationalization;
-
 mod argparse;
 mod board;
 mod enums;
