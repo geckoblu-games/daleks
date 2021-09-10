@@ -33,8 +33,17 @@ The game is inspired by `gnome-robots` which in turn was inspired by `BSD robots
 
  Commands:
     w          : Wait for end
+                 You can stay put and wait for the robots to finish making all their moves.
+                 This is not advisable unless there are very few robots and you are absolutely
+                 sure that they will all perish before reaching you.
+                 Every robot died when you wait increment your safe teleports number (depending on
+                 profile)
     + or ENTER : safe teleport
-    - or t     : unsafe teleport
+                 Safe teleports move the main character to a location that is safe from enemy robots.
+                 In each game only a few safe teleports are allowed.
+    - or t     : random teleport
+                 Use random teleports to teleport to a random location that may be safe or may not be safe.
+                 You can use as many random teleports as you want during a game.
     q          : quit
     ?          : this help
     
@@ -50,8 +59,6 @@ Legend:
 ```
 Usage:
   daleks [OPTIONS]
-
-Escape from evil robots who want to exterminate you.
 
 Optional arguments:
   -h,--help             Show this help message and exit

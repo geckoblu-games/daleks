@@ -7,6 +7,7 @@ use crate::profiles;
 pub fn parse_args(options: &mut options::Options) {
     let mut boardtype: std::option::Option<options::BoardType> = None;
     let mut profile: std::option::Option<profiles::Profiles> = None;
+    let mut howtoplay = false;
     let mut default = false;
     let mut save = false;
     let mut exterminate = false;
@@ -15,6 +16,14 @@ pub fn parse_args(options: &mut options::Options) {
     {
         let mut parser = ArgumentParser::new();
         parser.set_description(tr!("Escape from evil robots who want to exterminate you."));
+
+        parser
+            .refer(&mut howtoplay)
+            .add_option(
+                &["--how-to-play"],
+                StoreTrue,
+                tr!("How to play"),
+            );
 
         parser
             .refer(&mut options.safe_moves)
@@ -82,6 +91,12 @@ pub fn parse_args(options: &mut options::Options) {
         );
 
         parser.parse_args_or_exit();
+    }
+
+    if howtoplay {
+        println!("For detailed instructions on how to play visit:");
+        println!("         https://github.com/geckoblu-games/daleks#readme");
+        process::exit(0);
     }
 
     if exterminate {

@@ -1,4 +1,3 @@
-* long help
 * save score?
 
 DONE:
@@ -8,3 +7,4 @@ DONE:
 * check option --no-colors
 * exterminate option
 * bsd board
+* long help

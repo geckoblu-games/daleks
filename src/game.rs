@@ -678,7 +678,7 @@ const HELP_MESSAGE: &str = " Escape from evil robots who want to exterminate you
  Commands:
     w          : wait for end
     + or ENTER : safe teleport
-    - or t     : unsafe teleport
+    - or t     : random teleport
     q          : quit
     ?          : this help
 

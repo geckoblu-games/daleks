@@ -171,7 +171,7 @@ impl Board {
             self.write_at(
                 self.arena_width + 3,
                 l + 4,
-                tr!("-: unsafe teleport"),
+                tr!("-: random teleport"),
                 COLOR_TEXT,
             );
             self.write_at(self.arena_width + 3, l + 5, tr!("q: quit"), COLOR_TEXT);
