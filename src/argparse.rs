@@ -5,6 +5,7 @@ use crate::options;
 use crate::profiles;
 
 pub fn parse_args(options: &mut options::Options) {
+    let mut boardtype: std::option::Option<options::BoardType> = None;
     let mut profile: std::option::Option<profiles::Profiles> = None;
     let mut default = false;
     let mut save = false;
@@ -57,6 +58,12 @@ pub fn parse_args(options: &mut options::Options) {
                 tr!("Use extended unicode characters"),
             );
 
+        parser.refer(&mut boardtype).add_option(
+            &["-b", "--boardtype"],
+            StoreOption,
+            tr!("Set the board layout (NORMAL, BSD)"),
+        );
+
         parser.refer(&mut exterminate).add_option(
             &["-x", "--exterminate"],
             StoreTrue,
@@ -80,6 +87,10 @@ pub fn parse_args(options: &mut options::Options) {
     if exterminate {
         println!("{}", EXTERMINATE);
         process::exit(1);
+    }
+
+    if let Some(boardtype) = boardtype {
+        options.boardtype = boardtype;
     }
 
     if let Some(profile) = profile {

@@ -32,7 +32,7 @@ The game is inspired by `gnome-robots` which in turn was inspired by `BSD robots
     1   2   3        b     j     n
 
  Commands:
-    w          : wait for end
+    w          : Wait for end
     + or ENTER : safe teleport
     - or t     : unsafe teleport
     q          : quit
@@ -45,15 +45,64 @@ Legend:
     *:  junk heap    
 ```
 
+## Options
+
+```
+Usage:
+  daleks [OPTIONS]
+
+Escape from evil robots who want to exterminate you.
+
+Optional arguments:
+  -h,--help             Show this help message and exit
+  -s,--safe-moves       Prevent accidental moves that result in getting killed
+  --no-safe-moves       Don't prevent accidental moves that result in getting
+                        killed
+  -p,--profile PROFILE  Set the game profile (CLASSIC, ROBOTS2, NIGHTMARE,
+                        ROBOTS2EASY, CLASSICWITHSAFETELEPORTS)
+  -c,--colors           Enable terminal colors
+  --no-colors           Disable terminal colors
+  -a,--asciionly        Use only ascii characters
+  --no-asciionly        Use extended unicode characters
+  -b,--boardtype BOARDTYPE
+                        Set the board layout (NORMAL, BSD)
+  -x,--exterminate      Use at your own risk
+  --defaults            Restore default values
+  --save-conf           Save current configuration
+```
+
+### BSD
+
+Launching the program with the following options you play (quite) the same game as `bsd-robots`
+
+```
+daleks -a -p CLASSIC -b BSD --no-colors
+```
+
 ## Installation
 
 ### From sources
 Follow these instructions to compile `daleks` (requires [rust](https://www.rust-lang.org/) installed).
 
- 1. Clone the project `$ git clone https://github.com/geckoblu-games/daleks && cd daleks`
- 2. Build the project `$ cargo build --release`
- 3. Once complete, the binary will be located at `target/release/daleks`
- 4. Copy the binary in one of the directories listed in your $PATH
+1\. Clone the project 
+ 
+ ```
+ git clone https://github.com/geckoblu-games/daleks && cd daleks
+ ```
+ 
+2\. Build the project
+ 
+ ```
+ cargo build --release
+ ```
+ 
+3\. Once complete, the binary will be located at
+
+```
+target/release/daleks
+```
+
+4\. Copy the binary in one of the directories listed in your $PATH
 
 ### From crates.io
 If you're a rusticean, `daleks` can be installed with `cargo`.

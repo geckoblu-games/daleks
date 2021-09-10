@@ -14,7 +14,7 @@ use crate::enums::*;
 use crate::options::Options;
 
 const CHANGE_DELAY: u64 = 1000;
-const WAITING_DELAY: u64 = 300;
+const WAITING_DELAY: u64 = 200;
 
 const WAITING_KILLS: [u16; 2] = [1, 2];
 

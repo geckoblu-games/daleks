@@ -5,18 +5,44 @@ use crate::profiles;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub enum BoardSize {
-    Small,
+    Normal,
 }
 
 impl Default for BoardSize {
     fn default() -> Self {
-        BoardSize::Small
+        BoardSize::Normal
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq)]
+pub enum BoardType {
+    Normal,
+    Bsd,
+}
+
+impl Default for BoardType {
+    fn default() -> Self {
+        BoardType::Normal
+    }
+}
+
+impl std::str::FromStr for BoardType {
+    type Err = String;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let p = s.to_uppercase();
+        match p.as_str() {
+            "NORMAL" => Ok(BoardType::Normal),
+            "BSD" => Ok(BoardType::Bsd),
+            _ => Err(format!("'{}' is not a valid value for BoardType", s)),
+        }
     }
 }
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct Options {
     pub boardsize: BoardSize,
+    pub boardtype: BoardType,
 
     pub asciionly: bool,
     pub colors: bool,
@@ -46,7 +72,8 @@ pub struct Options {
 impl Options {
     pub fn default() -> Self {
         let mut options = Options {
-            boardsize: BoardSize::Small,
+            boardsize: BoardSize::Normal,
+            boardtype: BoardType::Normal,
 
             asciionly: false,
             colors: true,

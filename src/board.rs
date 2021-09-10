@@ -12,12 +12,14 @@ use termion::terminal_size;
 
 use crate::enums::ObjectType;
 use crate::options::BoardSize;
+use crate::options::BoardType;
 use crate::options::Options;
 
 pub struct Board {
     // Immutable fields
     board_width: usize,
     board_height: usize,
+    boardtype: BoardType,
     //stdout: screen::AlternateScreen<RawTerminal<Stdout>>,
     stdout: RawTerminal<Stdout>,
     asciionly: bool,
@@ -42,18 +44,30 @@ impl Board {
         let board_height;
 
         match options.boardsize {
-            BoardSize::Small => {
+            BoardSize::Normal => {
                 board_width = 80;
                 board_height = 24;
             }
         }
 
-        let arena_width = board_width - 2;
-        let arena_height = board_height - 3;
+        let arena_width;
+        let arena_height;
+
+        match options.boardtype {
+            BoardType::Normal => {
+                arena_width = board_width - 2;
+                arena_height = board_height - 3;
+            }
+            BoardType::Bsd => {
+                arena_width = board_width - 2 - 19;
+                arena_height = board_height - 2;
+            }
+        }
 
         Board {
             board_width,
             board_height,
+            boardtype: options.boardtype,
             //stdout: screen::AlternateScreen::from(stdout().into_raw_mode().unwrap()),
             stdout: stdout().into_raw_mode().unwrap(),
             asciionly: options.asciionly,
@@ -125,7 +139,49 @@ impl Board {
     }
 
     fn draw_walls(&mut self) {
-        self.draw_borders(0, 0, self.board_width, self.board_height - 1, COLOR_WALL);
+        self.draw_borders(
+            0,
+            0,
+            self.arena_width + 2,
+            self.arena_height + 2,
+            COLOR_WALL,
+        );
+        if self.boardtype == BoardType::Bsd {
+            self.write_at(self.arena_width + 3, 0, tr!("Directions:"), COLOR_TEXT);
+            self.write_at(self.arena_width + 3, 2, "y k u", COLOR_TEXT);
+            self.write_at(self.arena_width + 3, 3, " \\!/", COLOR_TEXT);
+            self.write_at(self.arena_width + 3, 4, "h- -l", COLOR_TEXT);
+            self.write_at(self.arena_width + 3, 5, " /|\\", COLOR_TEXT);
+            self.write_at(self.arena_width + 3, 6, "b j n", COLOR_TEXT);
+
+            let mut l = 8;
+            self.write_at(self.arena_width + 3, l, tr!("Commands:"), COLOR_TEXT);
+            self.write_at(
+                self.arena_width + 3,
+                l + 2,
+                tr!("w: wait for end"),
+                COLOR_TEXT,
+            );
+            self.write_at(
+                self.arena_width + 3,
+                l + 3,
+                tr!("+: safe teleport"),
+                COLOR_TEXT,
+            );
+            self.write_at(
+                self.arena_width + 3,
+                l + 4,
+                tr!("-: unsafe teleport"),
+                COLOR_TEXT,
+            );
+            self.write_at(self.arena_width + 3, l + 5, tr!("q: quit"), COLOR_TEXT);
+
+            l = 15;
+            self.write_at(self.arena_width + 3, l, tr!("Legend:"), COLOR_TEXT);
+            self.write_at(self.arena_width + 3, l + 2, tr!("@; you"), COLOR_TEXT);
+            self.write_at(self.arena_width + 3, l + 3, tr!("+ #: robot"), COLOR_TEXT);
+            self.write_at(self.arena_width + 3, l + 4, tr!("*: heap"), COLOR_TEXT);
+        }
     }
 
     fn draw_borders(
@@ -178,24 +234,48 @@ impl Board {
         let score = format!("{}: {}", tr!("Score"), self.score);
         let safes = format!("{}: {}", tr!("Safe teleports"), self.safeteleports);
 
-        let status_len = self.board_width - 2;
+        match self.boardtype {
+            BoardType::Normal => {
+                let status_len = self.board_width - 2;
 
-        let level_len = level.chars().count();
-        let score_len = score.chars().count();
+                let level_len = level.chars().count();
+                let score_len = score.chars().count();
 
-        let score_padding = status_len / 2 - level_len + score_len / 2;
-        let safes_padding = status_len - score_padding - level_len;
+                let score_padding = status_len / 2 - level_len + score_len / 2;
+                let safes_padding = status_len - score_padding - level_len;
 
-        let status_line = format!(
-            " {}{:>score_padding$}{:>safes_padding$} ",
-            level,
-            score,
-            safes,
-            score_padding = score_padding,
-            safes_padding = safes_padding
-        );
+                let status_line = format!(
+                    " {}{:>score_padding$}{:>safes_padding$} ",
+                    level,
+                    score,
+                    safes,
+                    score_padding = score_padding,
+                    safes_padding = safes_padding
+                );
 
-        self.write_at(0, self.board_height - 1, &status_line, COLOR_TEXT);
+                self.write_at(0, self.board_height - 1, &status_line, COLOR_TEXT);
+            }
+            BoardType::Bsd => {
+                self.write_at(
+                    self.arena_width + 3,
+                    self.board_height - 3,
+                    &level,
+                    COLOR_TEXT,
+                );
+                self.write_at(
+                    self.arena_width + 3,
+                    self.board_height - 2,
+                    &score,
+                    COLOR_TEXT,
+                );
+                self.write_at(
+                    self.arena_width + 3,
+                    self.board_height - 1,
+                    &safes,
+                    COLOR_TEXT,
+                );
+            }
+        }
 
         self.stdout.flush().unwrap();
     }
