@@ -94,7 +94,7 @@ Follow these instructions to compile `daleks` (requires [rust](https://www.rust-
 1\. Clone the project 
  
  ```
- git clone https://github.com/geckoblu-games/daleks && cd daleks
+ git clone https://github.com/geckoblu-games/daleks.git && cd daleks
  ```
  
 2\. Build the project
