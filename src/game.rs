@@ -376,7 +376,7 @@ impl Game {
 
     fn move_robots(
         &self,
-        new_arena: &mut Vec<ObjectType>,
+        new_arena: &mut [ObjectType],
         player_x: usize,
         player_y: usize,
     ) -> MoveRobotsResult {
@@ -419,7 +419,7 @@ impl Game {
         robot: ObjectType,
         x: usize,
         y: usize,
-        new_arena: &mut Vec<ObjectType>,
+        new_arena: &mut [ObjectType],
         player_x: usize,
         player_y: usize,
         result: &mut MoveRobotsResult,

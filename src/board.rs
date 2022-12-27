@@ -377,12 +377,11 @@ impl Board {
 
         let mut y1 = y + 1;
         for line in message.lines() {
-            let s;
-            if center {
-                s = format!("{: ^width$}", line, width = width - 2);
+            let s = if center {
+                format!("{: ^width$}", line, width = width - 2)
             } else {
-                s = format!("{: <width$}", line, width = width - 2);
-            }
+                format!("{: <width$}", line, width = width - 2)
+            };
             self.write_at(x + 1, y1, s.as_str(), COLOR_TEXT);
             y1 += 1;
         }

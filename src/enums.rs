@@ -1,4 +1,4 @@
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Eq, Clone, Copy)]
 pub enum ObjectType {
     Robot1 = 0,
     Robot2 = 1,
@@ -13,7 +13,7 @@ impl ObjectType {
     }
 }
 
-#[derive(PartialEq, Clone, Copy)]
+#[derive(PartialEq, Eq, Clone, Copy)]
 pub enum GameState {
     Playing = 0,
     Waiting = 1,
