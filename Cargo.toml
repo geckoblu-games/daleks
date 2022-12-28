@@ -1,7 +1,7 @@
 [package]
 name = "daleks"
 version = "0.6.0"
-edition = "2018"
+edition = "2021"
 
 authors = ["Alessio Piccoli <alepic@geckoblu.net>"]
 description = "Escape from evil robots who want to exterminate you."
